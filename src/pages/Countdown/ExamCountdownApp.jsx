@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
+import PageShell from '../../components/ui/PageShell';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { uuid } from '../../utils/helpers';
 
@@ -25,17 +26,18 @@ export default function ExamCountdownApp() {
   };
 
   return (
-    <div>
+    <PageShell>
+      <div>
       <PageTitle title="Exam Countdown" description="Add upcoming exams and track days remaining." />
-      <form className="card grid gap-3 sm:grid-cols-3" onSubmit={addExam}>
+      <form className="glass-card rounded-2xl p-5 grid gap-3 sm:grid-cols-3" onSubmit={addExam}>
         <input className="input sm:col-span-2" value={name} onChange={(e) => setName(e.target.value)} placeholder="Exam name" />
         <input className="input" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <button className="btn-primary sm:col-span-3" type="submit">Add exam</button>
       </form>
       <div className="mt-4 space-y-2">
-        {upcoming.length === 0 && <div className="card text-sm text-slate-500">No exams scheduled yet.</div>}
+        {upcoming.length === 0 && <div className="glass-card rounded-2xl p-5 text-sm text-slate-500">No exams scheduled yet.</div>}
         {upcoming.map((exam) => (
-          <div key={exam.id} className="card flex items-center justify-between">
+          <div key={exam.id} className="glass-card rounded-2xl p-5 flex items-center justify-between">
             <div>
               <p className="font-medium">{exam.name}</p>
               <p className="text-xs text-slate-500">{exam.date}</p>
@@ -46,6 +48,7 @@ export default function ExamCountdownApp() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </PageShell>
   );
 }

@@ -65,6 +65,22 @@ export const appGroups = [
       { path: '/distraction-tracker', name: 'Distraction Tracker', purpose: 'Focused vs wasted time.', icon: AlarmClock },
     ],
   },
+
+  {
+    title: 'Requested Mega Packs',
+    apps: [
+      { path: '/advanced-smart-tools', name: 'Advanced Smart Tools', purpose: 'Active recall, blur reader, mistakes, decisions, context resume.', icon: Brain },
+      { path: '/analytics-meta-learning', name: 'Analytics Meta-Learning', purpose: 'Heatmaps, focus score, audit, burnout, goal breakdown.', icon: BarChart3 },
+      { path: '/math-tools-pack', name: 'Math Tools Pack', purpose: 'Solver, graph explorer, geometry, derivations, generated practice.', icon: Sigma },
+      { path: '/science-tools-pack', name: 'Science Tools Pack', purpose: 'Periodic explorer, balancing, simulation, lab notes.', icon: Beaker },
+      { path: '/language-tools-pack', name: 'Language Tools Pack', purpose: 'Pronunciation, builder, context vocab, grammar fixer.', icon: Languages },
+      { path: '/reading-writing-tools', name: 'Reading Writing Tools', purpose: 'Summarizer, essay planner, paraphraser, comprehension.', icon: BookText },
+      { path: '/productivity-tools-pack', name: 'Productivity Pack', purpose: 'Kanban, matrix, risk, weekly review, focus workspace.', icon: ListChecks },
+      { path: '/motivation-gamification-pack', name: 'Motivation Pack', purpose: 'XP, streaks, missions, rewards, boss battle.', icon: Flame },
+      { path: '/creative-tools-pack', name: 'Creative Tools Pack', purpose: 'Memory palace, concept links, timelines, debate, teach-back.', icon: Lightbulb },
+      { path: '/ai-specific-tools-pack', name: 'AI-Specific Tools Pack', purpose: 'Auto cards, quiz generation, ELI5, adaptive difficulty, plans.', icon: Brain },
+    ],
+  },
 ];
 
 export const flatApps = appGroups.flatMap((group) => group.apps);

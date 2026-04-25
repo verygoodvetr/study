@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
+import PageShell from '../../components/ui/PageShell';
 import StatCard from '../../components/StatCard';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
@@ -30,9 +31,10 @@ export default function PomodoroApp() {
   }, [secondsLeft]);
 
   return (
-    <div>
+    <PageShell>
+      <div>
       <PageTitle title="Pomodoro Timer" description="Run focused 25-minute sessions and track your consistency." />
-      <div className="card text-center">
+      <div className="glass-card rounded-2xl p-5 text-center">
         <p className="text-6xl font-bold tracking-tight">{mmss}</p>
         <div className="mt-4 flex justify-center gap-2">
           <button type="button" className="btn-primary" onClick={() => setRunning((prev) => !prev)}>{running ? 'Pause' : 'Start'}</button>
@@ -43,6 +45,7 @@ export default function PomodoroApp() {
         <StatCard label="Completed sessions" value={stats.sessions} />
         <StatCard label="Focused minutes" value={stats.focusedMinutes} />
       </div>
-    </div>
+      </div>
+    </PageShell>
   );
 }

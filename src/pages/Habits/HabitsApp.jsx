@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
+import PageShell from '../../components/ui/PageShell';
 import StatCard from '../../components/StatCard';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { uuid } from '../../utils/helpers';
@@ -23,9 +24,10 @@ export default function HabitsApp() {
   };
 
   return (
-    <div>
+    <PageShell>
+      <div>
       <PageTitle title="Habit Tracker" description="Track recurring study habits and daily consistency." />
-      <form className="card flex gap-2" onSubmit={addHabit}>
+      <form className="glass-card rounded-2xl p-5 flex gap-2" onSubmit={addHabit}>
         <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Habit name" />
         <button className="btn-primary" type="submit">Add</button>
       </form>
@@ -34,9 +36,9 @@ export default function HabitsApp() {
         <StatCard label="Completion" value={completion.total ? `${Math.round((completion.done / completion.total) * 100)}%` : '0%'} />
       </div>
       <div className="mt-4 space-y-2">
-        {habits.length === 0 && <div className="card text-sm text-slate-500">No habits created yet.</div>}
+        {habits.length === 0 && <div className="glass-card rounded-2xl p-5 text-sm text-slate-500">No habits created yet.</div>}
         {habits.map((habit) => (
-          <div key={habit.id} className="card flex items-center justify-between gap-2">
+          <div key={habit.id} className="glass-card rounded-2xl p-5 flex items-center justify-between gap-2">
             <p>{habit.name}</p>
             <button
               type="button"
@@ -48,6 +50,7 @@ export default function HabitsApp() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </PageShell>
   );
 }

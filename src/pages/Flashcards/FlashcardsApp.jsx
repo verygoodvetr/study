@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
+import PageShell from '../../components/ui/PageShell';
 import StatCard from '../../components/StatCard';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { uuid } from '../../utils/helpers';
@@ -30,9 +31,10 @@ export default function FlashcardsApp() {
   };
 
   return (
-    <div>
+    <PageShell>
+      <div>
       <PageTitle title="Flashcards" description="Build cards, flip with animation, and track mastered content." />
-      <form onSubmit={addCard} className="card grid gap-3 sm:grid-cols-2">
+      <form onSubmit={addCard} className="glass-card rounded-2xl p-5 grid gap-3 sm:grid-cols-2">
         <input className="input" placeholder="Front (question)" value={form.front} onChange={(e) => setForm({ ...form, front: e.target.value })} />
         <input className="input" placeholder="Back (answer)" value={form.back} onChange={(e) => setForm({ ...form, back: e.target.value })} />
         <button className="btn-primary sm:col-span-2" type="submit">Add card</button>
@@ -44,7 +46,7 @@ export default function FlashcardsApp() {
         <StatCard label="Progress" value={`${progress.pct}%`} />
       </div>
 
-      <div className="card mt-4 min-h-48">
+      <div className="glass-card rounded-2xl p-5 mt-4 min-h-48">
         {!active ? (
           <p className="text-sm text-slate-500">No flashcards yet. Add one above to begin.</p>
         ) : (
@@ -66,6 +68,7 @@ export default function FlashcardsApp() {
           </>
         )}
       </div>
-    </div>
+      </div>
+    </PageShell>
   );
 }
