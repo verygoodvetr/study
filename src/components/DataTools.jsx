@@ -66,6 +66,7 @@ export default function DataTools() {
   };
 
   return (
+
     <AnimatedCard className="mt-6">
       <h2 className="font-semibold">Backup, import & reminders</h2>
       <div className="mt-3 flex flex-wrap gap-2">
