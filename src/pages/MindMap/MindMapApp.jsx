@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PageTitle from '../../components/PageTitle';
-import PageShell from '../../components/ui/PageShell';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { uuid } from '../../utils/helpers';
 
@@ -18,10 +17,9 @@ export default function MindMapApp() {
   };
 
   return (
-    <PageShell>
-      <div>
+    <div>
       <PageTitle title="Mind Map Tool" description="Create simple linked nodes to map concepts and dependencies." />
-      <form className="glass-card rounded-2xl p-5 grid gap-3 sm:grid-cols-3" onSubmit={addNode}>
+      <form className="card grid gap-3 sm:grid-cols-3" onSubmit={addNode}>
         <input className="input sm:col-span-2" value={text} onChange={(e) => setText(e.target.value)} placeholder="Node text" />
         <select className="input" value={parentId} onChange={(e) => setParentId(e.target.value)}>
           <option value="">No parent (root)</option>
@@ -29,7 +27,7 @@ export default function MindMapApp() {
         </select>
         <button type="submit" className="btn-primary sm:col-span-3">Add node</button>
       </form>
-      <div className="glass-card rounded-2xl p-5 mt-4 overflow-x-auto">
+      <div className="card mt-4 overflow-x-auto">
         {nodes.length === 0 ? (
           <p className="text-sm text-slate-500">No nodes yet.</p>
         ) : (
@@ -46,7 +44,6 @@ export default function MindMapApp() {
           </ul>
         )}
       </div>
-      </div>
-    </PageShell>
+    </div>
   );
 }

@@ -1,59 +1,48 @@
 import { Link } from 'react-router-dom';
-import PageTitle from '../../components/PageTitle';
+import { BookOpenCheck, Brain, CalendarClock, FileText, Flame, Goal, ListChecks, Map, Timer } from 'lucide-react';
 import DataTools from '../../components/DataTools';
-import StatCard from '../../components/StatCard';
-import PageShell from '../../components/ui/PageShell';
-import { appGroups } from '../../data/apps';
+import PageTitle from '../../components/PageTitle';
 
-function countItems(key) {
-  const raw = localStorage.getItem(key);
-  if (!raw) return 0;
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.length : Object.keys(parsed || {}).length;
-  } catch {
-    return 0;
-  }
-}
+const apps = [
+  { path: '/flashcards', name: 'Flashcards', purpose: 'Flip cards and track mastery.', icon: BookOpenCheck },
+  { path: '/pomodoro', name: 'Pomodoro Timer', purpose: 'Timed deep-work sessions with stats.', icon: Timer },
+  { path: '/notes', name: 'Notes App', purpose: 'Taggable notes with auto-save.', icon: FileText },
+  { path: '/quiz', name: 'Quiz App', purpose: 'Create and attempt custom quizzes.', icon: Brain },
+  { path: '/planner', name: 'Study Planner', purpose: 'Manage tasks and deadlines.', icon: ListChecks },
+  { path: '/habits', name: 'Habit Tracker', purpose: 'Monitor daily study routines.', icon: Flame },
+  { path: '/mind-map', name: 'Mind Map Tool', purpose: 'Build topic nodes and links.', icon: Map },
+  { path: '/focus', name: 'Focus Mode', purpose: 'Fullscreen minimal timer mode.', icon: Goal },
+  { path: '/formulas', name: 'Formula Viewer', purpose: 'Quick access by subject.', icon: BookOpenCheck },
+  { path: '/countdown', name: 'Exam Countdown', purpose: 'Track multiple exam timers.', icon: CalendarClock },
+];
 
 export default function Dashboard() {
-  const stats = {
-    notes: countItems('study_notes'),
-    cards: countItems('study_flashcards'),
-    tasks: countItems('study_planner_tasks'),
-    exams: countItems('study_exam_countdowns'),
-  };
-
   return (
-    <PageShell>
-      <PageTitle title="Study Dashboard" description="A premium, unified study operating system with AI copilot and deep analytics." />
-      <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Notes" value={stats.notes} subValue="Knowledge base" />
-        <StatCard label="Flashcards" value={stats.cards} subValue="Review queue" />
-        <StatCard label="Tasks" value={stats.tasks} subValue="Execution plan" />
-        <StatCard label="Exams" value={stats.exams} subValue="Deadlines" />
-      </div>
-      <div className="space-y-6">
-        {appGroups.map((group) => (
-          <section key={group.title}>
-            <h2 className="mb-3 text-lg font-semibold">{group.title}</h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {group.apps.map(({ path, name, purpose, icon: Icon }) => (
-                <Link key={path} to={path} className="glass-card group block rounded-2xl p-4 transition">
-                  <div className="flex items-center gap-3">
-                    <span className="rounded-xl bg-indigo-100 p-2 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
-                      <Icon size={18} />
-                    </span>
-                    <h3 className="font-semibold">{name}</h3>
-                  </div>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{purpose}</p>
-                </Link>
-              ))}
+    <div>
+      <PageTitle
+        title="Study Dashboard"
+        description="Open any module below. Your data is stored locally for a persistent study workflow."
+      />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {apps.map(({ path, name, purpose, icon: Icon }) => (
+          <Link key={path} to={path} className="card group hover:-translate-y-0.5">
+            <div className="flex items-center gap-3">
+              <span className="rounded-xl bg-indigo-100 p-2 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+                <Icon size={18} />
+              </span>
+              <h2 className="font-semibold">{name}</h2>
             </div>
-          </section>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{purpose}</p>
+          </Link>
         ))}
       </div>
+      <div className="card mt-6">
+        <p className="text-sm text-slate-500 dark:text-slate-400">Quick tip</p>
+        <p className="mt-2 text-sm">
+          Start with Planner + Pomodoro for execution, then use Flashcards + Quiz for reinforcement.
+        </p>
+      </div>
       <DataTools />
-    </PageShell>
+    </div>
   );
 }

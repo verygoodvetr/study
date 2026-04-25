@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
-import PageShell from '../../components/ui/PageShell';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { formatDate, uuid } from '../../utils/helpers';
 
@@ -19,18 +18,17 @@ export default function PlannerApp() {
   };
 
   return (
-    <PageShell>
-      <div>
+    <div>
       <PageTitle title="Study Planner" description="Plan study tasks with deadlines and completion status." />
-      <form className="glass-card rounded-2xl p-5 grid gap-3 sm:grid-cols-3" onSubmit={addTask}>
+      <form className="card grid gap-3 sm:grid-cols-3" onSubmit={addTask}>
         <input className="input sm:col-span-2" value={task} onChange={(e) => setTask(e.target.value)} placeholder="Task" />
         <input className="input" type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
         <button className="btn-primary sm:col-span-3" type="submit">Add task</button>
       </form>
       <div className="mt-4 space-y-2">
-        {sorted.length === 0 && <div className="glass-card rounded-2xl p-5 text-sm text-slate-500">No tasks yet.</div>}
+        {sorted.length === 0 && <div className="card text-sm text-slate-500">No tasks yet.</div>}
         {sorted.map((item) => (
-          <div key={item.id} className="glass-card rounded-2xl p-5 flex items-center justify-between gap-3">
+          <div key={item.id} className="card flex items-center justify-between gap-3">
             <div>
               <p className={`font-medium ${item.done ? 'line-through opacity-60' : ''}`}>{item.task}</p>
               <p className="text-xs text-slate-500">Deadline: {formatDate(item.deadline)}</p>
@@ -39,7 +37,6 @@ export default function PlannerApp() {
           </div>
         ))}
       </div>
-      </div>
-    </PageShell>
+    </div>
   );
 }

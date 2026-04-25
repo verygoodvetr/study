@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PageTitle from '../../components/PageTitle';
-import PageShell from '../../components/ui/PageShell';
 
 const formulaData = {
   Algebra: ['Quadratic Formula: x = (-b ± √(b² - 4ac)) / 2a', 'Slope Formula: (y2 - y1) / (x2 - x1)'],
@@ -13,10 +12,9 @@ export default function FormulaViewerApp() {
   const [subject, setSubject] = useState('Algebra');
 
   return (
-    <PageShell>
-      <div>
+    <div>
       <PageTitle title="Formula Viewer" description="Browse commonly used formulas by subject." />
-      <div className="glass-card rounded-2xl p-5">
+      <div className="card">
         <label className="text-sm">Subject</label>
         <select className="input mt-2" value={subject} onChange={(e) => setSubject(e.target.value)}>
           {Object.keys(formulaData).map((item) => <option key={item}>{item}</option>)}
@@ -27,7 +25,6 @@ export default function FormulaViewerApp() {
           ))}
         </ul>
       </div>
-      </div>
-    </PageShell>
+    </div>
   );
 }

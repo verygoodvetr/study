@@ -1,6 +1,4 @@
-import { useRef, useState } from 'react';
-import AnimatedButton from './ui/AnimatedButton';
-import AnimatedCard from './ui/AnimatedCard';
+import { useRef } from 'react';
 
 const STORAGE_KEYS = [
   'study_flashcards',
@@ -11,14 +9,11 @@ const STORAGE_KEYS = [
   'study_habits',
   'study_mindmap_nodes',
   'study_exam_countdowns',
-  'study_goals',
-  'study_distraction_log',
   'study_theme',
 ];
 
 export default function DataTools() {
   const inputRef = useRef(null);
-  const [message, setMessage] = useState('');
 
   const exportData = () => {
     const payload = STORAGE_KEYS.reduce((acc, key) => {
@@ -32,49 +27,36 @@ export default function DataTools() {
     link.download = `study-suite-backup-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    setMessage('Export complete.');
   };
 
   const importData = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
-    try {
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      STORAGE_KEYS.forEach((key) => {
-        if (parsed[key] !== undefined) localStorage.setItem(key, parsed[key]);
-      });
-      setMessage('Import complete. Reloading...');
-      setTimeout(() => window.location.reload(), 700);
-    } catch {
-      setMessage('Invalid JSON file.');
-    }
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    STORAGE_KEYS.forEach((key) => {
+      if (parsed[key] !== undefined) localStorage.setItem(key, parsed[key]);
+    });
+    window.location.reload();
   };
 
   const sendNotification = async () => {
-    if (!('Notification' in window)) {
-      setMessage('Browser notifications unavailable.');
-      return;
-    }
+    if (!('Notification' in window)) return;
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       new Notification('Study Suite', { body: 'Great work — time for your next focused block.' });
-      setMessage('Notification sent.');
-    } else {
-      setMessage('Notification permission denied.');
     }
   };
 
   return (
-    <AnimatedCard className="mt-6">
-      <h2 className="font-semibold">Backup, import & reminders</h2>
+    <div className="card mt-6">
+      <h2 className="font-semibold">Backup & utilities</h2>
       <div className="mt-3 flex flex-wrap gap-2">
-        <AnimatedButton type="button" className="btn-secondary" onClick={exportData}>Export JSON</AnimatedButton>
-        <AnimatedButton type="button" className="btn-secondary" onClick={() => inputRef.current?.click()}>Import JSON</AnimatedButton>
-        <AnimatedButton type="button" className="btn-secondary" onClick={sendNotification}>Test reminder</AnimatedButton>
+        <button type="button" className="btn-secondary" onClick={exportData}>Export JSON</button>
+        <button type="button" className="btn-secondary" onClick={() => inputRef.current?.click()}>Import JSON</button>
+        <button type="button" className="btn-secondary" onClick={sendNotification}>Test notification</button>
       </div>
       <input ref={inputRef} type="file" accept="application/json" className="hidden" onChange={importData} />
-      {message && <p className="mt-2 text-xs text-slate-500">{message}</p>}
-    </AnimatedCard>
+    </div>
   );
 }

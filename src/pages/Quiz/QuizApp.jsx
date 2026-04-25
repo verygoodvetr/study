@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import PageTitle from '../../components/PageTitle';
-import PageShell from '../../components/ui/PageShell';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { uuid } from '../../utils/helpers';
 
@@ -32,8 +31,7 @@ export default function QuizApp() {
   };
 
   return (
-    <PageShell>
-      <div>
+    <div>
       <PageTitle title="Quiz App" description="Create your own question bank and run quick self-tests." />
       <div className="mb-4 flex gap-2">
         <button className={`btn-secondary ${mode === 'build' ? 'ring-2 ring-indigo-500' : ''}`} onClick={() => setMode('build')} type="button">Create</button>
@@ -41,14 +39,14 @@ export default function QuizApp() {
       </div>
 
       {mode === 'build' ? (
-        <form className="glass-card rounded-2xl p-5 space-y-3" onSubmit={addQuestion}>
+        <form className="card space-y-3" onSubmit={addQuestion}>
           <input className="input" value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Question prompt" />
           <input className="input" value={answer} onChange={(e) => setAnswer(e.target.value)} placeholder="Correct answer" />
           <button className="btn-primary" type="submit">Add question</button>
           <p className="text-sm text-slate-500">{questions.length} question(s) saved.</p>
         </form>
       ) : (
-        <div className="glass-card rounded-2xl p-5">
+        <div className="card">
           {questions.length === 0 ? (
             <p className="text-sm text-slate-500">No questions yet. Create some first.</p>
           ) : finished ? (
@@ -66,7 +64,6 @@ export default function QuizApp() {
           )}
         </div>
       )}
-      </div>
-    </PageShell>
+    </div>
   );
 }

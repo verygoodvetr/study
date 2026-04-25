@@ -11,7 +11,6 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
-    document.documentElement.style.transition = 'background-color 220ms ease, color 220ms ease';
     localStorage.setItem('study_theme', theme);
   }, [theme]);
 
